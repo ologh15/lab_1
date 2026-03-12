@@ -1,13 +1,16 @@
-//
-// Created by gigabyte on 12.03.2026.
-//
+#pragma once
+#include <string>
 
-#ifndef LAB_1_ENEMY_H
-#define LAB_1_ENEMY_H
+class Enemy {
+private:
+    std::string type;
+    int damage;
 
+public:
+    Enemy();
+    Enemy(std::string t, int d);
 
-class enemy {
+    ~Enemy();
+
+    void showInfo() const;
 };
-
-
-#endif //LAB_1_ENEMY_H
