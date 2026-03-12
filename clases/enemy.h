@@ -6,11 +6,8 @@
 #define LAB_1_ENEMY_H
 
 
-
 class enemy {
-
 };
-
 
 
 #endif //LAB_1_ENEMY_H
