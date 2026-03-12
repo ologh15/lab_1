@@ -1,13 +1,16 @@
-//
-// Created by gigabyte on 12.03.2026.
-//
+#pragma once
+#include <string>
 
-#ifndef LAB_1_ITEM_H
-#define LAB_1_ITEM_H
+class Item {
+private:
+    std::string name;
+    int power;
 
+public:
+    Item();
+    Item(std::string n, int p);
 
-class item {
+    ~Item();
+
+    void showInfo() const;
 };
-
-
-#endif //LAB_1_ITEM_H
