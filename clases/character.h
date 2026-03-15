@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 
 class Character {
 private:
@@ -19,8 +20,19 @@ public:
     ~Character();
 
     void showInfo() const;
-    int getCharacterCount();
+
+    std::string getName() const;
+    int getHealth() const;
+    int getLevel() const;
+
+    Character& setLevel(int level);
+
+    static int getCharacterCount();
 
     Character& operator+=(int hp);
+    Character operator+(int hp) const;
     bool operator!() const;
+
+    friend std::ostream& operator<<(std::ostream& os, const Character& c);
+    friend std::istream& operator>>(std::istream& is, Character& c);
 };
