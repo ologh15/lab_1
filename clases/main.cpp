@@ -3,6 +3,7 @@
 #include "character.h"
 #include "item.h"
 #include "enemy.h"
+#include "Boss.h"
 
 int main() {
 
@@ -17,6 +18,9 @@ int main() {
 
     Enemy enemy1("DragonName", 200, 10, "Dragon", 50);
     enemy1.showInfo();
+
+    Boss boss1("DarkLord", 500, 20, "Demon", 80, 150);
+    boss1.showInfo();
 
     Character hero3 = hero2;
     Character hero4 = std::move(hero3);
