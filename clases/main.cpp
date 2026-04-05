@@ -15,7 +15,7 @@ int main() {
     Item item1("Sword", 25);
     item1.showInfo();
 
-    Enemy enemy1("Dragon", 50);
+    Enemy enemy1("DragonName", 200, 10, "Dragon", 50);
     enemy1.showInfo();
 
     Character hero3 = hero2;
