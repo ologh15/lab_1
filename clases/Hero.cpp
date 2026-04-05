@@ -1,0 +1,17 @@
+#include "hero.h"
+#include <iostream>
+
+Hero::Hero()
+    : Character("Hero", 100, 1), item("Default", 10) {}
+
+Hero::Hero(std::string n, int h, int lvl, Item i)
+    : Character(n, h, lvl), item(i) {}
+
+Hero::~Hero() {
+    std::cout << "Hero destroyed\n";
+}
+
+void Hero::showInfo() const {
+    Character::showInfo();
+    item.showInfo();
+}
