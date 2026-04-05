@@ -5,13 +5,14 @@
 #include "enemy.h"
 #include "Boss.h"
 #include "Hero.h"
+#include "Potion.h"
 
 int main() {
 
-    // Character hero1;
+    Character hero1;
     // Character hero2("Knight", 150, 5);
-    //
-    // hero1.showInfo();
+
+    hero1.showInfo();
     // hero2.showInfo();
 
     Item item1("Sword", 25);
@@ -26,11 +27,18 @@ int main() {
     Item sword("Sword", 50);
     Hero hero("Oleg", 200, 10, sword);
 
+    Potion potion1("HealthPotion", 10, 50);
+    potion1.showInfo();
+
     hero.showInfo();
 
-    // Character hero3 = hero2;
-    // Character hero4 = std::move(hero3);
-    //
+    Character temp;
+    std::cin >> temp;
+    std::cout << temp << std::endl;
+
+    Character hero3 = temp;
+    Character hero4 = std::move(hero3);
+
     // hero2 += 20;
     //
     // std::cout << hero2 << std::endl;
