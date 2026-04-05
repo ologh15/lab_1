@@ -1,15 +1,16 @@
 #pragma once
+#include "character.h"
 #include <string>
 #include <iostream>
 
-class Enemy {
+class Enemy : public Character {
 private:
     std::string type;
     int damage;
 
 public:
     Enemy();
-    Enemy(std::string t, int d);
+    Enemy(std::string n, int h, int lvl, std::string t, int d);
     ~Enemy();
 
     void showInfo() const;
