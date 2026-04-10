@@ -1,9 +1,10 @@
 #pragma once
 #include "item.h"
+#include "IDisplay.h"
 #include <string>
 #include <iostream>
 
-class Potion : public Item {
+class Potion : public Item, public IDisplay{
 private:
     int healAmount;
 
@@ -14,4 +15,5 @@ public:
 
     void showInfo() const;
     int getHealAmount() const;
+    void display() const override;
 };

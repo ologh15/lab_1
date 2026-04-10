@@ -6,6 +6,7 @@
 #include "Boss.h"
 #include "Hero.h"
 #include "Potion.h"
+#include "IDisplay.h"
 
 
 
@@ -13,6 +14,11 @@ void showCharacterByReference(const Character& character) {
     character.showInfo();
     character.attack();
 }
+
+void showByInterface(const IDisplay& obj) {
+    obj.display();
+}
+
 
 int main() {
 
@@ -103,6 +109,16 @@ int main() {
     showCharacterByReference(bossRef);
     std::cout << std::endl;
 
+    std::cout << "\n--- Interface demo ---" << std::endl;
+
+    Hero interfaceHero("Max", 200, 8, Item("Hammer", 45));
+    Potion interfacePotion("MegaPotion", 5, 100);
+
+    showByInterface(interfaceHero);
+    std::cout << std::endl;
+
+    showByInterface(interfacePotion);
+    std::cout << std::endl;
 
 
     return 0;

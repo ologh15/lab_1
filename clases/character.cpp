@@ -65,11 +65,11 @@ Character& Character::operator+=(int hp) {
     return *this;
 }
 
-Character Character::operator+(int hp) const {
-    Character temp(*this);
-    temp.health += hp;
-    return temp;
-}
+// Character Character::operator+(int hp) const {
+//     Character temp(*this);
+//     temp.health += hp;
+//     return temp;
+// }
 
 bool Character::operator!() const {
     return health <= 0;

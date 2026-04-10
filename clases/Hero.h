@@ -1,8 +1,10 @@
 #pragma once
 #include "character.h"
+#include "IDisplay.h"
 #include "item.h"
 
-class Hero : public Character {
+
+class Hero : public Character, public IDisplay {
 private:
     Item item;
 
@@ -13,4 +15,5 @@ public:
 
     void showInfo() const override;
     void attack() const override;
+    void display() const override;
 };

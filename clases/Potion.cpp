@@ -19,3 +19,8 @@ void Potion::showInfo() const {
 int Potion::getHealAmount() const {
     return healAmount;
 }
+
+void Potion::display() const {
+    std::cout << "[Potion] ";
+    showInfo();
+}

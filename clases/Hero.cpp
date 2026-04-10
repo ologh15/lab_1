@@ -20,3 +20,8 @@ void Hero::showInfo() const {
 void Hero::attack() const {
     std::cout << getName() << " attacks with " << item.getName() << std::endl;
 }
+
+void Hero::display() const {
+    std::cout << "[Hero] ";
+    showInfo();
+}

@@ -31,7 +31,7 @@ public:
     static int getCharacterCount();
 
     Character& operator+=(int hp);
-    Character operator+(int hp) const;
+    // Character operator+(int hp) const;
     bool operator!() const;
 
     friend std::ostream& operator<<(std::ostream& os, const Character& c);
