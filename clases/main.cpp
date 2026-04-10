@@ -31,7 +31,6 @@ int main() {
     potion1.showInfo();
 
     hero.showInfo();
-    
     Character* basePtr = new Hero("StaticHero", 180, 7, Item("Axe", 40));
     basePtr->showInfo();
     delete basePtr;

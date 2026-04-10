@@ -39,6 +39,10 @@ void Character::showInfo() const {
     std::cout << name << " HP:" << health << " Level:" << level << std::endl;
 }
 
+void Character::attack() const {
+    std::cout << name << " attacks with basic power." << std::endl;
+}
+
 std::string Character::getName() const {
     return name;
 }

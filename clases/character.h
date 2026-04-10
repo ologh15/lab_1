@@ -17,9 +17,10 @@ public:
     Character(const Character& other);
     Character(Character&& other) noexcept;
 
-    ~Character();
+    virtual ~Character();
 
-    void showInfo() const;
+    virtual void showInfo() const;
+    virtual void attack() const;
 
     std::string getName() const;
     int getHealth() const;
