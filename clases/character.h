@@ -20,7 +20,7 @@ public:
     virtual ~Character();
 
     virtual void showInfo() const;
-    virtual void attack() const;
+    virtual void attack() const = 0;
 
     std::string getName() const;
     int getHealth() const;

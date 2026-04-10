@@ -7,6 +7,13 @@
 #include "Hero.h"
 #include "Potion.h"
 
+
+
+void showCharacterByReference(const Character& character) {
+    character.showInfo();
+    character.attack();
+}
+
 int main() {
 
     // Character hero1;
@@ -52,10 +59,8 @@ int main() {
 
 
 
-    std::cout << "--- Static binding demo ---" << std::endl;
     Character* basePtr = new Hero("StaticHero", 180, 7, Item("Axe", 40));
     basePtr->showInfo();
-    std::cout << "Only Character::showInfo() is called if showInfo() is not virtual." << std::endl;
     delete basePtr;
 
     std::cout << "\n--- Run-time polymorphism with base pointer ---" << std::endl;
@@ -79,5 +84,26 @@ int main() {
     delete ptr1;
     delete ptr2;
     delete ptr3;
+
+
+
+
+    std::cout << "\n--- Run-time polymorphism with base reference ---" << std::endl;
+
+    Hero heroRef("Leon", 170, 6, Item("Bow", 25));
+    Enemy enemyRef("Orc", 120, 3, "Warrior", 20);
+    Boss bossRef("Azmodan", 500, 12, "Demon", 50, 120);
+
+    showCharacterByReference(heroRef);
+    std::cout << std::endl;
+
+    showCharacterByReference(enemyRef);
+    std::cout << std::endl;
+
+    showCharacterByReference(bossRef);
+    std::cout << std::endl;
+
+
+
     return 0;
 }
