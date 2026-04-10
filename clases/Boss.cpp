@@ -15,3 +15,7 @@ void Boss::showInfo() const {
     Enemy::showInfo();
     std::cout << "Special attack: " << specialAttack << std::endl;
 }
+
+void Boss::attack() const {
+    std::cout << getName() << " uses special attack: " << specialAttack << std::endl;
+}

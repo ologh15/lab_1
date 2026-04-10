@@ -11,5 +11,6 @@ public:
     Hero(std::string n, int h, int lvl, Item i);
     ~Hero();
 
-    void showInfo() const;
+    void showInfo() const override;
+    void attack() const override;
 };

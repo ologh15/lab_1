@@ -1,4 +1,5 @@
 #include "hero.h"
+#include "item.h"
 #include <iostream>
 
 Hero::Hero()
@@ -14,4 +15,8 @@ Hero::~Hero() {
 void Hero::showInfo() const {
     Character::showInfo();
     item.showInfo();
+}
+
+void Hero::attack() const {
+    std::cout << getName() << " attacks with " << item.getName() << std::endl;
 }

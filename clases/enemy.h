@@ -13,7 +13,9 @@ public:
     Enemy(std::string n, int h, int lvl, std::string t, int d);
     ~Enemy();
 
-    void showInfo() const;
+    void showInfo() const override;
+    void attack() const override;
+
     bool operator!() const;
 
     friend std::ostream& operator<<(std::ostream& out, const Enemy& enemy);

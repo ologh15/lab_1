@@ -13,6 +13,7 @@ public:
     ~Item();
 
     void showInfo() const;
+    std::string getName() const;
 
     friend std::ostream& operator<<(std::ostream& out, const Item& item);
     friend std::istream& operator>>(std::istream& in, Item& item);

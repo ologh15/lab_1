@@ -22,3 +22,7 @@ std::istream& operator>>(std::istream& in, Item& item) {
     in >> item.name >> item.power;
     return in;
 }
+
+std::string Item::getName() const {
+    return name;
+}

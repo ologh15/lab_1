@@ -16,6 +16,11 @@ void Enemy::showInfo() const {
     std::cout << "Type: " << type << ", Damage: " << damage << std::endl;
 }
 
+void Enemy::attack() const {
+    std::cout << getName() << " attacks with damage: " << damage << std::endl;
+}
+
+
 bool Enemy::operator!() const {
     return damage <= 0;
 }
