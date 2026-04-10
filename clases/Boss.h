@@ -3,7 +3,7 @@
 #include <string>
 #include <iostream>
 
-class Boss : public Enemy {
+class Boss final: public Enemy {
 private:
     int specialAttack;
 
