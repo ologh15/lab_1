@@ -1,5 +1,12 @@
 #include <iostream>
 #include <utility>
+#include <vector>
+#include <memory>
+#include <fstream>
+#include <string>
+#include <stdexcept>
+#include <limits>
+
 #include "character.h"
 #include "item.h"
 #include "enemy.h"
@@ -7,7 +14,6 @@
 #include "Hero.h"
 #include "Potion.h"
 #include "IDisplay.h"
-
 
 
 void showCharacterByReference(const Character& character) {
@@ -20,106 +26,72 @@ void showByInterface(const IDisplay& obj) {
 }
 
 
+
+
+int readInt(const std::string& message) {
+    int value;
+
+    std::cout << message;
+    if (!(std::cin >> value)) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        throw std::runtime_error("Invalid number input.");
+    }
+
+    return value;
+}
+
+std::string readString(const std::string& message) {
+    std::string value;
+
+    std::cout << message;
+    std::cin >> value;
+
+    if (value.empty()) {
+        throw std::runtime_error("Empty text input.");
+    }
+
+    return value;
+}
+
+void writeHistory(const std::string& action) {
+    std::ofstream file("history.txt", std::ios::app);
+
+    if (!file.is_open()) {
+        throw std::runtime_error("Cannot open history file.");
+    }
+
+    file << action << std::endl;
+}
+
+void showHistory() {
+    std::ifstream file("history.txt");
+
+    if (!file.is_open()) {
+        std::cout << "History is empty." << std::endl;
+        return;
+    }
+
+    std::string line;
+    std::cout << "\n--- User history ---" << std::endl;
+
+    while (std::getline(file, line)) {
+        std::cout << line << std::endl;
+    }
+}
+
+
+
 int main() {
-
-    // Character hero1;
-    // // Character hero2("Knight", 150, 5);
-    //
-    // hero1.showInfo();
-    // // hero2.showInfo();
-    //
-    // Item item1("Sword", 25);
-    // item1.showInfo();
-    //
-    // Enemy enemy1("DragonName", 200, 10, "Dragon", 50);
-    // enemy1.showInfo();
-    //
-    // Boss boss1("DarkLord", 500, 20, "Demon", 80, 150);
-    // boss1.showInfo();
-    //
-    // Item sword("Sword", 50);
-    // Hero hero("Oleg", 200, 10, sword);
-    //
-    // Potion potion1("HealthPotion", 10, 50);
-    // potion1.showInfo();
-    //
-    // hero.showInfo();
-    // Character* basePtr = new Hero("StaticHero", 180, 7, Item("Axe", 40));
-    // basePtr->showInfo();
-    // delete basePtr;
-    //
-    // Character temp;
-    // std::cin >> temp;
-    // std::cout << temp << std::endl;
-    //
-    // Character hero3 = temp;
-    // Character hero4 = std::move(hero3);
-    //
-    // // hero2 += 20;
-    // //
-    // // std::cout << hero2 << std::endl;
-    // //
-    // // std::cin >> hero2;
-    //
-    //
+    try {
 
 
-
-    Character* basePtr = new Hero("StaticHero", 180, 7, Item("Axe", 40));
-    basePtr->showInfo();
-    delete basePtr;
-
-    std::cout << "\n--- Run-time polymorphism with base pointer ---" << std::endl;
-
-    Character* ptr1 = new Hero("Artem", 150, 5, Item("Sword", 30));
-    Character* ptr2 = new Enemy("Goblin", 80, 2, "Monster", 15);
-    Character* ptr3 = new Boss("Diablo", 400, 10, "Demon", 40, 100);
-
-    ptr1->showInfo();
-    ptr1->attack();
-    std::cout << std::endl;
-
-    ptr2->showInfo();
-    ptr2->attack();
-    std::cout << std::endl;
-
-    ptr3->showInfo();
-    ptr3->attack();
-    std::cout << std::endl;
-
-    delete ptr1;
-    delete ptr2;
-    delete ptr3;
-
-
-
-
-    std::cout << "\n--- Run-time polymorphism with base reference ---" << std::endl;
-
-    Hero heroRef("Leon", 170, 6, Item("Bow", 25));
-    Enemy enemyRef("Orc", 120, 3, "Warrior", 20);
-    Boss bossRef("Azmodan", 500, 12, "Demon", 50, 120);
-
-    showCharacterByReference(heroRef);
-    std::cout << std::endl;
-
-    showCharacterByReference(enemyRef);
-    std::cout << std::endl;
-
-    showCharacterByReference(bossRef);
-    std::cout << std::endl;
-
-    std::cout << "\n--- Interface demo ---" << std::endl;
-
-    Hero interfaceHero("Max", 200, 8, Item("Hammer", 45));
-    Potion interfacePotion("MegaPotion", 5, 100);
-
-    showByInterface(interfaceHero);
-    std::cout << std::endl;
-
-    showByInterface(interfacePotion);
-    std::cout << std::endl;
-
+        writeHistory("Program started");
+        showHistory();
+    }
+    catch (const std::exception& error) {
+        std::cout << "Error: " << error.what() << std::endl;
+    }
 
     return 0;
 }
