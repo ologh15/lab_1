@@ -188,16 +188,86 @@ void adminMenu(std::vector<Item>& items) {
     } while (choice != 0);
 }
 
+void userMenu(const std::vector<Item>& items) {
+    int choice;
+
+    do {
+        std::cout << "\n--- User menu ---" << std::endl;
+        std::cout << "1. Show items" << std::endl;
+        std::cout << "2. Show history" << std::endl;
+        std::cout << "0. Back" << std::endl;
+
+        choice = readInt("Choose option: ");
+
+        switch (choice) {
+            case 1:
+                showItems(items);
+                writeHistory("User viewed items");
+                break;
+
+            case 2:
+                showHistory();
+                writeHistory("User viewed history");
+                break;
+
+            case 0:
+                std::cout << "Back to main menu." << std::endl;
+                break;
+
+            default:
+                std::cout << "Unknown option." << std::endl;
+                break;
+        }
+    } while (choice != 0);
+}
+
+void mainMenu(std::vector<Item>& items) {
+    int choice;
+
+    do {
+        std::cout << "\n--- Main menu ---" << std::endl;
+        std::cout << "1. Admin" << std::endl;
+        std::cout << "2. User" << std::endl;
+        std::cout << "0. Exit" << std::endl;
+
+        choice = readInt("Choose option: ");
+
+        switch (choice) {
+            case 1:
+                if (adminLogin()) {
+                    adminMenu(items);
+                }
+                break;
+
+            case 2:
+                userMenu(items);
+                break;
+
+            case 0:
+                std::cout << "Program finished." << std::endl;
+                writeHistory("Program finished");
+                break;
+
+            default:
+                std::cout << "Unknown option." << std::endl;
+                break;
+        }
+    } while (choice != 0);
+}
+
+
 
 
 
 
 int main() {
     try {
+        std::vector<Item> items;
 
-
+        loadItems(items);
         writeHistory("Program started");
-        showHistory();
+
+        mainMenu(items);
     }
     catch (const std::exception& error) {
         std::cout << "Error: " << error.what() << std::endl;
@@ -205,3 +275,4 @@ int main() {
 
     return 0;
 }
+
