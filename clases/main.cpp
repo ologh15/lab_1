@@ -188,13 +188,15 @@ void adminMenu(std::vector<Item>& items) {
     } while (choice != 0);
 }
 
+void createHero(const std::vector<Item>& items);
+
 void userMenu(const std::vector<Item>& items) {
     int choice;
 
     do {
-        std::cout << "\n--- User menu ---" << std::endl;
         std::cout << "1. Show items" << std::endl;
-        std::cout << "2. Show history" << std::endl;
+        std::cout << "2. Create hero" << std::endl;
+        std::cout << "3. Show history" << std::endl;
         std::cout << "0. Back" << std::endl;
 
         choice = readInt("Choose option: ");
@@ -206,6 +208,10 @@ void userMenu(const std::vector<Item>& items) {
                 break;
 
             case 2:
+                createHero(items);
+                break;
+
+            case 3:
                 showHistory();
                 writeHistory("User viewed history");
                 break;
@@ -218,7 +224,34 @@ void userMenu(const std::vector<Item>& items) {
                 std::cout << "Unknown option." << std::endl;
                 break;
         }
+
     } while (choice != 0);
+}
+
+void createHero(const std::vector<Item>& items) {
+    if (items.empty()) {
+        std::cout << "No items available. Ask admin to add items first." << std::endl;
+        return;
+    }
+
+    std::string heroName = readString("Enter hero name: ");
+
+    showItems(items);
+
+    int itemIndex = readInt("Choose item number: ");
+
+    if (itemIndex < 1 || itemIndex > items.size()) {
+        throw std::runtime_error("Invalid item number.");
+    }
+
+    std::unique_ptr<Character> hero =
+        std::make_unique<Hero>(heroName, 100, 1, items[itemIndex - 1]);
+
+    std::cout << "\n--- Created hero ---" << std::endl;
+    hero->showInfo();
+    hero->attack();
+
+    writeHistory("User created hero: " + heroName);
 }
 
 void mainMenu(std::vector<Item>& items) {
@@ -260,6 +293,10 @@ void mainMenu(std::vector<Item>& items) {
 
 
 
+
+
+
+
 int main() {
     try {
         std::vector<Item> items;
@@ -275,4 +312,7 @@ int main() {
 
     return 0;
 }
+
+
+
 
