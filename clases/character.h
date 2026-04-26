@@ -17,6 +17,9 @@ public:
     Character(const Character& other);
     Character(Character&& other) noexcept;
 
+    Character& operator=(const Character& other);
+    Character& operator=(Character&& other) noexcept;
+
     virtual ~Character();
 
     virtual void showInfo() const;

@@ -135,6 +135,73 @@ void addItem(std::vector<Item>& items) {
     std::cout << "Item added successfully." << std::endl;
 }
 
+void saveEnemies(const std::vector<Enemy>& enemies) {
+    std::ofstream file("enemies.txt");
+
+    if (!file.is_open()) {
+        throw std::runtime_error("Cannot open enemies file for saving.");
+    }
+
+    for (const Enemy& enemy : enemies) {
+        file << enemy << std::endl;
+    }
+}
+
+void loadEnemies(std::vector<Enemy>& enemies) {
+    std::ifstream file("enemies.txt");
+
+    if (!file.is_open()) {
+        return;
+    }
+
+    Enemy enemy;
+
+    while (file >> enemy) {
+        enemies.push_back(enemy);
+    }
+}
+
+void showEnemies(const std::vector<Enemy>& enemies) {
+    if (enemies.empty()) {
+        std::cout << "No enemies available." << std::endl;
+        return;
+    }
+
+    std::cout << "\n--- Enemies ---" << std::endl;
+
+    for (int i = 0; i < enemies.size(); i++) {
+        std::cout << i + 1 << ". ";
+        enemies[i].showInfo();
+    }
+}
+
+void addEnemy(std::vector<Enemy>& enemies) {
+    std::string name = readString("Enter enemy name: ");
+    int health = readInt("Enter enemy health: ");
+    int level = readInt("Enter enemy level: ");
+    std::string type = readString("Enter enemy type: ");
+    int damage = readInt("Enter enemy damage: ");
+
+    if (health <= 0) {
+        throw std::runtime_error("Enemy health must be positive.");
+    }
+
+    if (level <= 0) {
+        throw std::runtime_error("Enemy level must be positive.");
+    }
+
+    if (damage < 0) {
+        throw std::runtime_error("Enemy damage cannot be negative.");
+    }
+
+    enemies.push_back(Enemy(name, health, level, type, damage));
+    saveEnemies(enemies);
+    writeHistory("Admin added enemy: " + name);
+
+    std::cout << "Enemy added successfully." << std::endl;
+}
+
+
 bool adminLogin() {
     const std::string password = "admin123";
 
@@ -151,14 +218,16 @@ bool adminLogin() {
     return false;
 }
 
-void adminMenu(std::vector<Item>& items) {
+void adminMenu(std::vector<Item>& items, std::vector<Enemy>& enemies) {
     int choice;
 
     do {
         std::cout << "\n--- Admin menu ---" << std::endl;
         std::cout << "1. Add item" << std::endl;
         std::cout << "2. Show items" << std::endl;
-        std::cout << "3. Show history" << std::endl;
+        std::cout << "3. Add enemy" << std::endl;
+        std::cout << "4. Show enemies" << std::endl;
+        std::cout << "5. Show history" << std::endl;
         std::cout << "0. Back" << std::endl;
 
         choice = readInt("Choose option: ");
@@ -174,6 +243,15 @@ void adminMenu(std::vector<Item>& items) {
                 break;
 
             case 3:
+                addEnemy(enemies);
+                break;
+
+            case 4:
+                showEnemies(enemies);
+                writeHistory("Admin viewed enemies");
+                break;
+
+            case 5:
                 showHistory();
                 break;
 
@@ -262,7 +340,7 @@ void createHero(const std::vector<Item>& items) {
     writeHistory("User created hero: " + heroName);
 }
 
-void mainMenu(std::vector<Item>& items) {
+void mainMenu(std::vector<Item>& items, std::vector<Enemy>& enemies) {
     int choice;
 
     do {
@@ -276,7 +354,7 @@ void mainMenu(std::vector<Item>& items) {
         switch (choice) {
             case 1:
                 if (adminLogin()) {
-                    adminMenu(items);
+                    adminMenu(items, enemies);
                 }
                 break;
 
@@ -327,11 +405,14 @@ void buyItem(const std::vector<Item>& items) {
 int main() {
     try {
         std::vector<Item> items;
+        std::vector<Enemy> enemies;
 
         loadItems(items);
+        loadEnemies(enemies);
+
         writeHistory("Program started");
 
-        mainMenu(items);
+        mainMenu(items, enemies);
     }
     catch (const std::exception& error) {
         std::cout << "Error: " << error.what() << std::endl;

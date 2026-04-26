@@ -33,3 +33,19 @@ std::ostream& operator<<(std::ostream& out, const Enemy& enemy) {
         << enemy.damage;
     return out;
 }
+
+std::istream& operator>>(std::istream& in, Enemy& enemy) {
+    std::string name;
+    int health;
+    int level;
+    std::string type;
+    int damage;
+
+    in >> name >> health >> level >> type >> damage;
+
+    if (in) {
+        enemy = Enemy(name, health, level, type, damage);
+    }
+
+    return in;
+}

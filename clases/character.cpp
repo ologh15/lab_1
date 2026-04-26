@@ -29,6 +29,29 @@ Character::Character(Character&& other) noexcept
     other.level = 0;
 }
 
+Character& Character::operator=(const Character& other) {
+    if (this != &other) {
+        name = other.name;
+        health = other.health;
+        level = other.level;
+    }
+
+    return *this;
+}
+
+Character& Character::operator=(Character&& other) noexcept {
+    if (this != &other) {
+        name = std::move(other.name);
+        health = other.health;
+        level = other.level;
+
+        other.health = 0;
+        other.level = 0;
+    }
+
+    return *this;
+}
+
 // destructor
 Character::~Character() {
     std::cout << "Character destroyed: " << name << std::endl;

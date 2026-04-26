@@ -6,3 +6,31 @@ Program started
 Admin logged in
 Admin added item: axe
 Admin viewed items
+Program started
+User viewed items
+Admin logged in
+Admin added item: jj
+User viewed history
+User viewed items
+User viewed history
+Program finished
+Program started
+User created hero: jk
+User viewed items
+User viewed items
+Program started
+Failed admin login
+Program started
+Program started
+Program started
+Program started
+User created hero: оо
+User viewed history
+Program started
+Program started
+User bought item: jj
+User viewed history
+Program started
+Admin logged in
+Admin added enemy: dragon
+Admin viewed enemies
