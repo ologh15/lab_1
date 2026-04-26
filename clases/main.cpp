@@ -175,6 +175,30 @@ void showEnemies(const std::vector<Enemy>& enemies) {
     }
 }
 
+void fightEnemy(const std::vector<Enemy>& enemies) {
+    if (enemies.empty()) {
+        std::cout << "No enemies available. Ask admin to add enemies first." << std::endl;
+        return;
+    }
+
+    showEnemies(enemies);
+
+    int enemyIndex = readInt("Choose enemy number to fight: ");
+
+    if (enemyIndex < 1 || enemyIndex > enemies.size()) {
+        throw std::runtime_error("Invalid enemy number.");
+    }
+
+    const Enemy& enemy = enemies[enemyIndex - 1];
+
+    std::cout << "\n--- Battle ---" << std::endl;
+    enemy.showInfo();
+    enemy.attack();
+
+    writeHistory("User fought enemy: " + enemy.getName());
+}
+
+
 void addEnemy(std::vector<Enemy>& enemies) {
     std::string name = readString("Enter enemy name: ");
     int health = readInt("Enter enemy health: ");
@@ -268,7 +292,7 @@ void adminMenu(std::vector<Item>& items, std::vector<Enemy>& enemies) {
 void buyItem(const std::vector<Item>& items);
 void createHero(const std::vector<Item>& items);
 
-void userMenu(const std::vector<Item>& items) {
+void userMenu(const std::vector<Item>& items, const std::vector<Enemy>& enemies) {
     int choice;
 
     do {
@@ -276,7 +300,9 @@ void userMenu(const std::vector<Item>& items) {
         std::cout << "1. Show items" << std::endl;
         std::cout << "2. Buy item" << std::endl;
         std::cout << "3. Create hero" << std::endl;
-        std::cout << "4. Show history" << std::endl;
+        std::cout << "4. Show enemies" << std::endl;
+        std::cout << "5. Fight enemy" << std::endl;
+        std::cout << "6. Show history" << std::endl;
         std::cout << "0. Back" << std::endl;
 
 
@@ -297,6 +323,15 @@ void userMenu(const std::vector<Item>& items) {
                 break;
 
             case 4:
+                showEnemies(enemies);
+                writeHistory("User viewed enemies");
+                break;
+
+            case 5:
+                fightEnemy(enemies);
+                break;
+
+            case 6:
                 showHistory();
                 writeHistory("User viewed history");
                 break;
@@ -359,7 +394,7 @@ void mainMenu(std::vector<Item>& items, std::vector<Enemy>& enemies) {
                 break;
 
             case 2:
-                userMenu(items);
+                userMenu(items, enemies);
                 break;
 
             case 0:
