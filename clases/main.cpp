@@ -80,6 +80,62 @@ void showHistory() {
     }
 }
 
+void saveItems(const std::vector<Item>& items) {
+    std::ofstream file("items.txt");
+
+    if (!file.is_open()) {
+        throw std::runtime_error("Cannot open items file for saving.");
+    }
+
+    for (const Item& item : items) {
+        file << item << std::endl;
+    }
+}
+
+void loadItems(std::vector<Item>& items) {
+    std::ifstream file("items.txt");
+
+    if (!file.is_open()) {
+        return;
+    }
+
+    Item item;
+
+    while (file >> item) {
+        items.push_back(item);
+    }
+}
+
+void showItems(const std::vector<Item>& items) {
+    if (items.empty()) {
+        std::cout << "No items available." << std::endl;
+        return;
+    }
+
+    std::cout << "\n--- Items ---" << std::endl;
+
+    for (int i = 0; i < items.size(); i++) {
+        std::cout << i + 1 << ". ";
+        items[i].showInfo();
+    }
+}
+
+void addItem(std::vector<Item>& items) {
+    std::string name = readString("Enter item name: ");
+    int power = readInt("Enter item power: ");
+
+    if (power < 0) {
+        throw std::runtime_error("Item power cannot be negative.");
+    }
+
+    items.push_back(Item(name, power));
+    saveItems(items);
+    writeHistory("Admin added item: " + name);
+
+    std::cout << "Item added successfully." << std::endl;
+}
+
+
 
 
 int main() {
