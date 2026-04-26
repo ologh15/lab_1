@@ -135,6 +135,60 @@ void addItem(std::vector<Item>& items) {
     std::cout << "Item added successfully." << std::endl;
 }
 
+bool adminLogin() {
+    const std::string password = "admin123";
+
+    std::string inputPassword = readString("Enter admin password: ");
+
+    if (inputPassword == password) {
+        std::cout << "Admin login successful." << std::endl;
+        writeHistory("Admin logged in");
+        return true;
+    }
+
+    std::cout << "Wrong password." << std::endl;
+    writeHistory("Failed admin login");
+    return false;
+}
+
+void adminMenu(std::vector<Item>& items) {
+    int choice;
+
+    do {
+        std::cout << "\n--- Admin menu ---" << std::endl;
+        std::cout << "1. Add item" << std::endl;
+        std::cout << "2. Show items" << std::endl;
+        std::cout << "3. Show history" << std::endl;
+        std::cout << "0. Back" << std::endl;
+
+        choice = readInt("Choose option: ");
+
+        switch (choice) {
+            case 1:
+                addItem(items);
+                break;
+
+            case 2:
+                showItems(items);
+                writeHistory("Admin viewed items");
+                break;
+
+            case 3:
+                showHistory();
+                break;
+
+            case 0:
+                std::cout << "Back to main menu." << std::endl;
+                break;
+
+            default:
+                std::cout << "Unknown option." << std::endl;
+                break;
+        }
+    } while (choice != 0);
+}
+
+
 
 
 
