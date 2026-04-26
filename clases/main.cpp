@@ -246,48 +246,55 @@ void adminMenu(std::vector<Item>& items, std::vector<Enemy>& enemies) {
     int choice;
 
     do {
-        std::cout << "\n--- Admin menu ---" << std::endl;
-        std::cout << "1. Add item" << std::endl;
-        std::cout << "2. Show items" << std::endl;
-        std::cout << "3. Add enemy" << std::endl;
-        std::cout << "4. Show enemies" << std::endl;
-        std::cout << "5. Show history" << std::endl;
-        std::cout << "0. Back" << std::endl;
+        try {
+            std::cout << "\n--- Admin menu ---" << std::endl;
+            std::cout << "1. Add item" << std::endl;
+            std::cout << "2. Show items" << std::endl;
+            std::cout << "3. Add enemy" << std::endl;
+            std::cout << "4. Show enemies" << std::endl;
+            std::cout << "5. Show history" << std::endl;
+            std::cout << "0. Back" << std::endl;
 
-        choice = readInt("Choose option: ");
+            choice = readInt("Choose option: ");
 
-        switch (choice) {
-            case 1:
-                addItem(items);
-                break;
+            switch (choice) {
+                case 1:
+                    addItem(items);
+                    break;
 
-            case 2:
-                showItems(items);
-                writeHistory("Admin viewed items");
-                break;
+                case 2:
+                    showItems(items);
+                    writeHistory("Admin viewed items");
+                    break;
 
-            case 3:
-                addEnemy(enemies);
-                break;
+                case 3:
+                    addEnemy(enemies);
+                    break;
 
-            case 4:
-                showEnemies(enemies);
-                writeHistory("Admin viewed enemies");
-                break;
+                case 4:
+                    showEnemies(enemies);
+                    writeHistory("Admin viewed enemies");
+                    break;
 
-            case 5:
-                showHistory();
-                break;
+                case 5:
+                    showHistory();
+                    break;
 
-            case 0:
-                std::cout << "Back to main menu." << std::endl;
-                break;
+                case 0:
+                    std::cout << "Back to main menu." << std::endl;
+                    break;
 
-            default:
-                std::cout << "Unknown option." << std::endl;
-                break;
+                default:
+                    std::cout << "Unknown option." << std::endl;
+                    break;
+            }
+        }
+        catch (const std::exception& error) {
+            std::cout << "Error: " << error.what() << std::endl;
+            writeHistory(std::string("Admin error: ") + error.what());
         }
     } while (choice != 0);
+
 }
 void buyItem(const std::vector<Item>& items);
 void createHero(const std::vector<Item>& items);
@@ -296,57 +303,61 @@ void userMenu(const std::vector<Item>& items, const std::vector<Enemy>& enemies)
     int choice;
 
     do {
-        std::cout << "\n--- User menu ---" << std::endl;
-        std::cout << "1. Show items" << std::endl;
-        std::cout << "2. Buy item" << std::endl;
-        std::cout << "3. Create hero" << std::endl;
-        std::cout << "4. Show enemies" << std::endl;
-        std::cout << "5. Fight enemy" << std::endl;
-        std::cout << "6. Show history" << std::endl;
-        std::cout << "0. Back" << std::endl;
+        try {
+            std::cout << "\n--- User menu ---" << std::endl;
+            std::cout << "1. Show items" << std::endl;
+            std::cout << "2. Buy item" << std::endl;
+            std::cout << "3. Create hero" << std::endl;
+            std::cout << "4. Show enemies" << std::endl;
+            std::cout << "5. Fight enemy" << std::endl;
+            std::cout << "6. Show history" << std::endl;
+            std::cout << "0. Back" << std::endl;
 
+            choice = readInt("Choose option: ");
 
-        choice = readInt("Choose option: ");
+            switch (choice) {
+                case 1:
+                    showItems(items);
+                    writeHistory("User viewed items");
+                    break;
 
-        switch (choice) {
-            case 1:
-                showItems(items);
-                writeHistory("User viewed items");
-                break;
+                case 2:
+                    buyItem(items);
+                    break;
 
-            case 2:
-                buyItem(items);
-                break;
+                case 3:
+                    createHero(items);
+                    break;
 
-            case 3:
-                createHero(items);
-                break;
+                case 4:
+                    showEnemies(enemies);
+                    writeHistory("User viewed enemies");
+                    break;
 
-            case 4:
-                showEnemies(enemies);
-                writeHistory("User viewed enemies");
-                break;
+                case 5:
+                    fightEnemy(enemies);
+                    break;
 
-            case 5:
-                fightEnemy(enemies);
-                break;
+                case 6:
+                    showHistory();
+                    writeHistory("User viewed history");
+                    break;
 
-            case 6:
-                showHistory();
-                writeHistory("User viewed history");
-                break;
+                case 0:
+                    std::cout << "Back to main menu." << std::endl;
+                    break;
 
-            case 0:
-                std::cout << "Back to main menu." << std::endl;
-                break;
-
-            default:
-                std::cout << "Unknown option." << std::endl;
-                break;
+                default:
+                    std::cout << "Unknown option." << std::endl;
+                    break;
+            }
         }
-
-
+        catch (const std::exception& error) {
+            std::cout << "Error: " << error.what() << std::endl;
+            writeHistory(std::string("User error: ") + error.what());
+        }
     } while (choice != 0);
+
 }
 
 void createHero(const std::vector<Item>& items) {
