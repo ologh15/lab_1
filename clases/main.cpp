@@ -187,17 +187,20 @@ void adminMenu(std::vector<Item>& items) {
         }
     } while (choice != 0);
 }
-
+void buyItem(const std::vector<Item>& items);
 void createHero(const std::vector<Item>& items);
 
 void userMenu(const std::vector<Item>& items) {
     int choice;
 
     do {
+        std::cout << "\n--- User menu ---" << std::endl;
         std::cout << "1. Show items" << std::endl;
-        std::cout << "2. Create hero" << std::endl;
-        std::cout << "3. Show history" << std::endl;
+        std::cout << "2. Buy item" << std::endl;
+        std::cout << "3. Create hero" << std::endl;
+        std::cout << "4. Show history" << std::endl;
         std::cout << "0. Back" << std::endl;
+
 
         choice = readInt("Choose option: ");
 
@@ -208,10 +211,14 @@ void userMenu(const std::vector<Item>& items) {
                 break;
 
             case 2:
-                createHero(items);
+                buyItem(items);
                 break;
 
             case 3:
+                createHero(items);
+                break;
+
+            case 4:
                 showHistory();
                 writeHistory("User viewed history");
                 break;
@@ -224,6 +231,7 @@ void userMenu(const std::vector<Item>& items) {
                 std::cout << "Unknown option." << std::endl;
                 break;
         }
+
 
     } while (choice != 0);
 }
@@ -288,6 +296,25 @@ void mainMenu(std::vector<Item>& items) {
     } while (choice != 0);
 }
 
+void buyItem(const std::vector<Item>& items) {
+    if (items.empty()) {
+        std::cout << "No items available." << std::endl;
+        return;
+    }
+
+    showItems(items);
+
+    int itemIndex = readInt("Choose item number to buy: ");
+
+    if (itemIndex < 1 || itemIndex > items.size()) {
+        throw std::runtime_error("Invalid item number.");
+    }
+
+    std::string itemName = items[itemIndex - 1].getName();
+
+    std::cout << "You bought: " << itemName << std::endl;
+    writeHistory("User bought item: " + itemName);
+}
 
 
 
