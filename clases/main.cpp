@@ -300,7 +300,7 @@ void buyItem(const std::vector<Item>& items);
 void createHero(const std::vector<Item>& items);
 
 void userMenu(const std::vector<Item>& items, const std::vector<Enemy>& enemies) {
-    int choice;
+    int choice = -1;
 
     do {
         try {
@@ -387,38 +387,45 @@ void createHero(const std::vector<Item>& items) {
 }
 
 void mainMenu(std::vector<Item>& items, std::vector<Enemy>& enemies) {
-    int choice;
+    int choice = -1;
 
     do {
-        std::cout << "\n--- Main menu ---" << std::endl;
-        std::cout << "1. Admin" << std::endl;
-        std::cout << "2. User" << std::endl;
-        std::cout << "0. Exit" << std::endl;
+        try {
+            std::cout << "\n--- Main menu ---" << std::endl;
+            std::cout << "1. Admin" << std::endl;
+            std::cout << "2. User" << std::endl;
+            std::cout << "0. Exit" << std::endl;
 
-        choice = readInt("Choose option: ");
+            choice = readInt("Choose option: ");
 
-        switch (choice) {
-            case 1:
-                if (adminLogin()) {
-                    adminMenu(items, enemies);
-                }
-                break;
+            switch (choice) {
+                case 1:
+                    if (adminLogin()) {
+                        adminMenu(items, enemies);
+                    }
+                    break;
 
-            case 2:
-                userMenu(items, enemies);
-                break;
+                case 2:
+                    userMenu(items, enemies);
+                    break;
 
-            case 0:
-                std::cout << "Program finished." << std::endl;
-                writeHistory("Program finished");
-                break;
+                case 0:
+                    std::cout << "Program finished." << std::endl;
+                    writeHistory("Program finished");
+                    break;
 
-            default:
-                std::cout << "Unknown option." << std::endl;
-                break;
+                default:
+                    std::cout << "Unknown option." << std::endl;
+                    break;
+            }
+        }
+        catch (const std::exception& error) {
+            std::cout << "Error: " << error.what() << std::endl;
+            writeHistory(std::string("Main menu error: ") + error.what());
         }
     } while (choice != 0);
 }
+
 
 void buyItem(const std::vector<Item>& items) {
     if (items.empty()) {

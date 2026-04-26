@@ -34,3 +34,8 @@ Program started
 Admin logged in
 Admin added enemy: dragon
 Admin viewed enemies
+Program started
+User fought enemy: dragon
+Program started
+Failed admin login
+User created hero: 3
